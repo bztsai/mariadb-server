@@ -1632,8 +1632,10 @@ static void* sst_donor_thread (void* a)
   // SST is now in progress
   sst_in_progress= true;
 
-  wsp::thd thd(FALSE); // we turn off wsrep_on for this THD so that it can
-                       // operate with wsrep_ready == OFF
+  // We turn off wsrep_on for this THD so that it can
+  // operate with wsrep_ready == OFF
+  // We also set this SST thread THD as system thread
+  wsp::thd thd(FALSE, true);
 
   wsp::process proc(arg->cmd, "r", arg->env);
 
@@ -1737,7 +1739,6 @@ wait_signal:
 
   wsrep_donor_monitor_end();
   sst_in_progress= false;
-
 
   return NULL;
 }
