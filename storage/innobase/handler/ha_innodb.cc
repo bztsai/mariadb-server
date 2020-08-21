@@ -20598,7 +20598,7 @@ void innobase_free_row_for_vcol(VCOL_STORAGE *storage)
 void innobase_report_computed_value_failed(dtuple_t *row)
 {
   ib::error() << "Compute virtual column values failed for "
-              << rec_printer(row);
+              << rec_printer(row).str();
 }
 
 
